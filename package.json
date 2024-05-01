@@ -1,0 +1,32 @@
+{
+  "name": "leonetti-axios-kucoin",
+  "version": "0.0.1",
+  "description": "kucoin api typescript",
+  "repository": "alexandreleonetti/axios-kucoin",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "type",
+    "types"
+  ],
+  "author": {
+    "name": "Alex Leonetti",
+    "url": "https://github.com/AlexandreLeonetti"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^20.12.7",
+    "@types/uuid": "^9.0.8",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "uuid": "^9.0.1"
+  }
+}

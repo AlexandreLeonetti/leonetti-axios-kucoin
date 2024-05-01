@@ -1,0 +1,84 @@
+import {createHmac} from "node:crypto"; /* corresponding type @types/node */ 
+
+async function sleep(ms:number) : Promise<void>{
+    return new Promise((resolve)=> {
+        setTimeout(resolve, ms);
+    });
+}
+
+function formatter(s: string | number, factor: number, precision: number): number {
+    if (typeof s === "string") {
+        let n = factor * parseFloat(s);
+        let p = Math.pow(10, precision);
+        n = Math.trunc(n * p) / p;
+        n = parseFloat(n.toFixed(precision));
+        return n;
+    } else {
+        // When s is a number, directly apply the factor and precision
+        let n = s * factor;
+        let p = Math.pow(10, precision);
+        n = Math.trunc(n * p) / p;
+        n = parseFloat(n.toFixed(precision));
+        return n;
+    }
+}
+
+
+
+
+type debtParams = {
+    symbols : string;
+    timestamp : number;
+}
+
+
+type isoBuyParams = {
+    symbol : string;
+    isIsolated : string;
+    side : string;
+    type : string;
+    quantity : number;
+    newOrderRespType : string;
+    sideEffectType : string;
+    timestamp : number;
+}
+
+type isoStopParams = {
+    symbol : string;
+    isIsolated : string;
+    side : string;
+    type : string;
+    quantity : number;
+    stopPrice : number;
+    price : number;
+    sideEffectType : string;
+    timeInForce : string;
+    timestamp : number;
+}
+
+type cancelOrds = {
+    symbol : string;
+    isIsolated: string;
+    timestamp : number;
+}
+
+type typeParam = debtParams | isoBuyParams | isoStopParams | cancelOrds;
+
+function generateQueryString(params:typeParam, apiSecret: string): string {
+    console.log(params);
+    let queryString = Object.entries(params)
+        .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+        .join('&');
+
+    const signature = createHmac('sha256', apiSecret)
+        .update(queryString)
+        .digest('hex');
+
+    return `${queryString}&signature=${signature}`;
+}
+
+export {
+    sleep,
+    formatter,
+    generateQueryString
+};
