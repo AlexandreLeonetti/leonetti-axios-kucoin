@@ -11,7 +11,7 @@ const createOrderRequest = (get, post, del) => ({
     cancelAllOrder: async (params) => del(urls_1.ordersUrl.cancelAllOrder, params),
     listOrders: async (params) => get(urls_1.ordersUrl.listOrders, params),
     recentOrders: async () => get(urls_1.ordersUrl.recentOrders, {}),
-    getAnOrder: async (params) => get(`${urls_1.ordersUrl.getAnOrder}/${params.orderId}`, {}),
+    getAnOrder: async (params) => get(`${urls_1.ordersUrl.getAnOrder}/${params}`, {}),
     getSingleActiveOrder: async (params) => get(`${urls_1.ordersUrl.getSingleActiveOrder}/${params.clientOid}`, {}),
 });
 exports.createOrderRequest = createOrderRequest;

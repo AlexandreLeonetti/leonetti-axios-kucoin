@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lendingMarketUrls = exports.marginTradingUrls = exports.isolatedMarginUrls = exports.borrowLendUrls = exports.marginInfoUrls = exports.currenciesUrls = exports.historiesUrls = exports.orderBookUrls = exports.symbolTickersUrls = exports.stopOrderUrls = exports.fillsUrls = exports.ordersUrl = exports.tradeFeeUrls = exports.withdrawalUrls = exports.depositUrls = exports.accountUrls = exports.UserUrls = exports.baseUrl = void 0;
-exports.baseUrl = 'https://api.kucoin.com';
+//export const baseUrl = 'https://api.kucoin.com';
+exports.baseUrl = 'https://openapi-v2.kucoin.com';
 exports.UserUrls = {
     getSubAccounts: '/api/v2/sub/user',
 };

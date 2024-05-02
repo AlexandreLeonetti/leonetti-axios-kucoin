@@ -1,4 +1,5 @@
-export const baseUrl = 'https://api.kucoin.com';
+//export const baseUrl = 'https://api.kucoin.com';
+export const baseUrl= 'https://openapi-v2.kucoin.com';
 export const UserUrls = {
   getSubAccounts: '/api/v2/sub/user',
 };

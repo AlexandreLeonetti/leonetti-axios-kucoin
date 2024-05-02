@@ -17,7 +17,7 @@ export const createOrderRequest = (
   cancelAllOrder: async (params: ICancelAllOrder) => del(url.cancelAllOrder, params),
   listOrders: async (params: IListOrders) => get(url.listOrders, params),
   recentOrders: async () => get(url.recentOrders, {}),
-  getAnOrder: async (params: IOrder) => get(`${url.getAnOrder}/${params.orderId}`, {}),
+  getAnOrder: async (params: string) => get(`${url.getAnOrder}/${params}`, {}),
   getSingleActiveOrder: async (params: ISingleOrder) =>
     get(`${url.getSingleActiveOrder}/${params.clientOid}`, {}),
 });
