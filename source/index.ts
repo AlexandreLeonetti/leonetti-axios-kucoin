@@ -99,12 +99,17 @@ export type ICreateClient = {
 	key: string;
 };
 
+
+
+export default Client;
+
 /* Robot starts here */
 //const test = await k1.other.getServerTime();
 //const test2 = await k1.other.serviceStatus();
 //const { data } = test2;
 
-export default Client;
+
+/*
 const k1 = new Client({
 	secret: process.env.KUCOIN_SECRET as string,
 	password: process.env.PASS_PHRASE as string,
@@ -155,7 +160,6 @@ async function main() {// CHANGE TO ENTRY.
 		size: size_stop,
 		tradeType: "MARGIN_ISOLATED_TRADE",
 	});
-*/
 
 
 
@@ -163,3 +167,4 @@ async function main() {// CHANGE TO ENTRY.
 }
 
 main();
+*/
