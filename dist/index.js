@@ -30,9 +30,8 @@ exports.Client = void 0;
 const axios_1 = __importDefault(require("axios"));
 const helpers_1 = require("./utils/helpers");
 const urls_1 = require("./utils/urls");
-const uuid = __importStar(require("uuid"));
 const stopOrders_1 = require("./trade/stopOrders");
-const utils_1 = require("@leonetti/utils");
+const symbolsTicker_1 = require("./marketData/symbolsTicker");
 const orders_1 = require("./trade/orders");
 const dotenv = __importStar(require("dotenv"));
 const others_1 = require("./others");
@@ -76,6 +75,7 @@ class Client {
     orders = (0, orders_1.createOrderRequest)(this.get, this.post, this.delete);
     other = (0, others_1.createOthersRequest)(this.get);
     stopOrder = (0, stopOrders_1.createStopOrderRequest)(this.get, this.post, this.delete);
+    symbolsTicker = (0, symbolsTicker_1.createSymbolsTickerRequest)(this.get);
     async getAvg(mktId) {
         let avg = 0;
         // get data...
@@ -110,31 +110,41 @@ async function main() {
     let size_stop = (size * 0.995).toFixed(3);
     let stopLoss = 0.005;
     let limitLoss = 0.007;
-    const { data } = await k1.orders.placeMarginOrder({
-        clientOid: Date.now().toString(),
-        side: "buy",
-        symbol: "TON-USDT",
-        type: "market",
-        size: str_size,
-        marginModel: "isolated",
-    });
-    const avgBuy = await k1.getAvg(data.data.orderId);
-    console.log("avgBuy : ", avgBuy);
-    /* implement stop loss orders
- and clean other useless apis */
-    let stop_price = (avgBuy * (1 - stopLoss)).toFixed(3);
-    let lim_price = (avgBuy * (1 - limitLoss)).toFixed(3);
-    await (0, utils_1.sleep)(1000);
-    const uuid4b = uuid.v4();
-    const sl1 = await k1.stopOrder.placeNewOrder({
-        clientOid: uuid4b,
-        side: "sell",
-        symbol: "TON-USDT",
-        stop: "loss",
-        stopPrice: stop_price,
-        price: lim_price,
-        size: size_stop,
-        tradeType: "MARGIN_ISOLATED_TRADE",
-    });
+    const prom_price = await k1.symbolsTicker.getTicker({ symbol: "TON-USDT" });
+    console.log(prom_price);
+    const price = prom_price.data.data.price;
+    console.log(price); // price in string format
+    /*
+  
+      const { data } = await k1.orders.placeMarginOrder({
+          clientOid: Date.now().toString(),
+          side: "buy",
+          symbol: "TON-USDT",
+          type: "market",
+          size: str_size,
+          marginModel: "isolated",
+      });
+  
+      const avgBuy = await k1.getAvg(data.data.orderId);
+      console.log("avgBuy : ", avgBuy);
+  
+    // stop loss orders
+      let stop_price = (avgBuy * (1 - stopLoss)).toFixed(3);
+      let lim_price = (avgBuy * (1 - limitLoss)).toFixed(3);
+  
+      await sleep(1000);
+  
+      const uuid4b = uuid.v4();
+      const sl1 = await k1.stopOrder.placeNewOrder({
+          clientOid: uuid4b,
+          side: "sell",
+          symbol: "TON-USDT",
+          stop: "loss",
+          stopPrice: stop_price,
+          price: lim_price,
+          size: size_stop,
+          tradeType: "MARGIN_ISOLATED_TRADE",
+      });
+  */
 }
 main();

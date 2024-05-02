@@ -4,12 +4,14 @@ import { buildEndpointQuery, sign } from "./utils/helpers";
 import { baseUrl } from "./utils/urls";
 import * as uuid from "uuid";
 import { createStopOrderRequest } from "./trade/stopOrders";
+import { createSymbolsTickerRequest } from './marketData/symbolsTicker';
 import { sleep } from "@leonetti/utils";
 import {
 	ILimitOrderParameters,
 	IPlaceMarginOrder,
 	createOrderRequest,
 } from "./trade/orders";
+
 import * as dotenv from "dotenv";
 import { createOthersRequest } from "./others";
 console.log("baseUrl ", baseUrl);
@@ -68,6 +70,7 @@ export class Client {
 	public orders = createOrderRequest(this.get, this.post, this.delete);
 	public other = createOthersRequest(this.get);
 	public stopOrder = createStopOrderRequest(this.get, this.post, this.delete);
+  public symbolsTicker = createSymbolsTickerRequest(this.get);
 
   public async getAvg(mktId: string) {
     let avg = 0;
@@ -110,13 +113,18 @@ const k1 = new Client({
 
 
 
-async function main() {
+async function main() {// CHANGE TO ENTRY.
 	let size = 1.5;
 	let str_size = size.toFixed(3);
 	let size_stop = (size * 0.995).toFixed(3);
 
 	let stopLoss = 0.005;
 	let limitLoss = 0.007;
+  
+ const prom_price =  await k1.symbolsTicker.getTicker({symbol:"TON-USDT"});
+ const price =  prom_price.data.data.price; 
+
+  /*
 
 	const { data } = await k1.orders.placeMarginOrder({
 		clientOid: Date.now().toString(),
@@ -130,9 +138,7 @@ async function main() {
 	const avgBuy = await k1.getAvg(data.data.orderId);
 	console.log("avgBuy : ", avgBuy);
 
-	/* implement stop loss orders 
- and clean other useless apis */
-
+  // stop loss orders
 	let stop_price = (avgBuy * (1 - stopLoss)).toFixed(3);
 	let lim_price = (avgBuy * (1 - limitLoss)).toFixed(3);
 
@@ -149,6 +155,11 @@ async function main() {
 		size: size_stop,
 		tradeType: "MARGIN_ISOLATED_TRADE",
 	});
+*/
+
+
+
+
 }
 
 main();
