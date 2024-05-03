@@ -1,9 +1,10 @@
 {
   "name": "leonetti-axios-kucoin",
-  "version": "0.0.4",
+  "version": "0.0.9",
   "description": "kucoin api typescript",
   "repository": "alexandreleonetti/axios-kucoin",
-  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "exports":"./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc"

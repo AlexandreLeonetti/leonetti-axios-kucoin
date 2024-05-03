@@ -108,7 +108,6 @@ export default Client;
 //const test2 = await k1.other.serviceStatus();
 //const { data } = test2;
 
-
 /*
 const k1 = new Client({
 	secret: process.env.KUCOIN_SECRET as string,
@@ -129,7 +128,6 @@ async function main() {// CHANGE TO ENTRY.
  const prom_price =  await k1.symbolsTicker.getTicker({symbol:"TON-USDT"});
  const price =  prom_price.data.data.price; 
 
-  /*
 
 	const { data } = await k1.orders.placeMarginOrder({
 		clientOid: Date.now().toString(),
